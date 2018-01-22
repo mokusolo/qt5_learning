@@ -1,5 +1,6 @@
 #include "mainwidget.h"
 
+#include <QDebug>
 
 MainWidget::MainWidget(QWidget *parent)
     : QWidget(parent)
@@ -45,9 +46,19 @@ MainWidget::MainWidget(QWidget *parent)
      connect(&b3, &QPushButton::released, this, &MainWidget::changeWin);
 
      // 处理子窗口的信号
-     connect(&w, &SubWidget::mySignal, this, &MainWidget::dealSub);
+//     void(SubWidget::*funSignal)() = &SubWidget::mySignal;
+//     connect(&subWin, funSignal, this, &MainWidget::dealSub);
+//     void(SubWidget::*testSignal)(int, QString) = &SubWidget::mySignal;
+//     connect(&subWin, testSignal, this, &MainWidget::dealSlot);
 
-     resize(400, 300);
+    // Qt4信号连接
+    // Qt4槽函数必须有slots关键字来修饰
+    connect(&subWin, SIGNAL(mySignal()), this, SLOT(dealSub()));
+    connect(&subWin, SIGNAL(mySignal(int,QString)), this, SLOT(dealSlot(int,QString)));
+
+    // SIGNAL SLOT 将函数名字 -> 字符串 不进行错误检查
+
+    resize(400, 300);
 }
 
 void MainWidget::myslot()
@@ -58,7 +69,7 @@ void MainWidget::myslot()
 void MainWidget::changeWin()
 {
     // 子窗口显示
-    w.show();
+    subWin.show();
     // 本窗口隐藏
     this->close();
 }
@@ -66,9 +77,16 @@ void MainWidget::changeWin()
 void MainWidget::dealSub()
 {
     // 子窗口隐藏
-    w.close();
+    subWin.close();
     // 本窗口显示
     show();
+}
+
+void MainWidget::dealSlot(int a, QString b)
+{
+    // b.toUtf8() -> 字节数组QByteArray
+    // ...data() -> QByteArray -> char*
+    qDebug() << a << b.toUtf8().data() << endl;
 }
 
 MainWidget::~MainWidget()

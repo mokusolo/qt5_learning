@@ -15,14 +15,17 @@ public:
 
     void myslot();
     void changeWin();
+
+public slots:
     void dealSub();
+    void dealSlot(int, QString);
 
 private:
     QPushButton b1;
     QPushButton *b2;
     QPushButton b3;
 
-    SubWidget w;
+    SubWidget subWin;
 
 };
 

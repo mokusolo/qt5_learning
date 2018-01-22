@@ -17,8 +17,10 @@ signals:
      * 信号没有返回值，但可以用参数
      * 信号就是函数的声明，只需声明，无需定义
      * 使用：emit mySignal();
+     * 信号可以重载
      */
     void mySignal();
+    void mySignal(int, QString);
 
 public slots:
 
