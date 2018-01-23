@@ -13,6 +13,8 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mywidget.cpp
+        mywidget.cpp \
+    mybutton.cpp
 
-HEADERS  += mywidget.h
+HEADERS  += mywidget.h \
+    mybutton.h

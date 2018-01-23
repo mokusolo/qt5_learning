@@ -29,7 +29,7 @@ MyWidget::MyWidget(QWidget *parent)
     MyButton *b3 = new MyButton(this);
     b3->setText("123");
 
-    // 指定父对象后
+    // 1）指定父对象后 2）直接或间接继承于QObject
     // 子对象如果是动态分配空间的new，不需要手动释放delete
     // 系统会自动释放
 
