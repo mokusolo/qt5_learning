@@ -58,6 +58,29 @@ MainWidget::MainWidget(QWidget *parent)
 
     // SIGNAL SLOT 将函数名字 -> 字符串 不进行错误检查
 
+    // Lambda表达式，匿名函数对象
+    // C++增加的新特性，项目文件： CONFIG += C++11
+    // Qt配合信号一起使用，非常方便
+
+    QPushButton *b4 = new QPushButton(this);
+    b4->setText("Lambda表达式");
+    b4->move(150, 150);
+
+    int a = 10, b = 100;
+    connect(b4, &QPushButton::released,
+            // = ：把外部所有局部变量 类中所有成员以值传递方式传递
+            // this ：类中所有成员以值传递方式传递
+            // & ：把外部所有局部变量，引用符号
+            [=]() mutable
+            {
+                b4->setText("123321");
+                qDebug() << "11111";
+                qDebug() << a << b;
+                // 没有mutable的话a就是只可读不可写
+                a = 11;
+            }
+            );
+
     resize(400, 300);
 }
 
