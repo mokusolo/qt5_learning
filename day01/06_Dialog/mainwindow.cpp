@@ -4,6 +4,8 @@
 #include <QAction>
 #include <QDialog>
 #include <QDebug>
+#include <QMessageBox>
+#include <QFileDialog>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -41,7 +43,49 @@ MainWindow::MainWindow(QWidget *parent)
 
             );
 
+    QAction *p3 = menu->addAction("关于对话框");
 
+    connect(p3, &QAction::triggered,
+            [=]()
+            {
+                QMessageBox::about(this, "about", "关于qt");
+            }
+
+            );
+
+    QAction *p4 = menu->addAction("问题对话框");
+
+    connect(p4, &QAction::triggered,
+            [=]()
+            {
+                int ret = QMessageBox::question(this, "question", "Are you OK?", QMessageBox::Ok | QMessageBox::Cancel);
+                switch (ret) {
+                case QMessageBox::Ok:
+                    qDebug() << "I am OK.";
+                    break;
+                case QMessageBox::Cancel:
+                    qDebug() << "I am bad.";
+                    break;
+                default:
+                    break;
+                }
+            }
+
+            );
+
+    QAction *p5 = menu->addAction("文件对话框");
+
+    connect(p5, &QAction::triggered,
+            [=]()
+            {
+                QString path = QFileDialog::getOpenFileName(this, "open", "../", "source(*.cpp *.h);;"
+                                                                                 "Text(*.txt);;"
+                                                                                 "all(*.*)"
+                                                            );
+                qDebug() << path;
+            }
+
+            );
 }
 
 MainWindow::~MainWindow()
