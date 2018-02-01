@@ -157,6 +157,9 @@
       </layout>
      </widget>
     </item>
+    <item>
+     <widget class="SmallWidget" name="widget_4" native="true"/>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -180,6 +183,14 @@
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>SmallWidget</class>
+   <extends>QWidget</extends>
+   <header location="global">smallwidget.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
