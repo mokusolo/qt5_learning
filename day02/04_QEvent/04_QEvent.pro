@@ -14,9 +14,14 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mywidget.cpp \
-    mylabel.cpp
+    mylabel.cpp \
+    mybutton.cpp
 
 HEADERS  += mywidget.h \
-    mylabel.h
+    mylabel.h \
+    mybuttnon.h \
+    mybutton.h
 
 FORMS    += mywidget.ui
+
+CONFIG += c++11
