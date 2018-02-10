@@ -76,3 +76,41 @@ void MyWidget::closeEvent(QCloseEvent *e)
         e->ignore();
     }
 }
+
+bool MyWidget::event(QEvent *e)
+{
+//    // 事件分发
+//    switch( e->type() )
+//    {
+//    case QEvent::Close:
+//        closeEvent(e);
+//        break;
+//    case QEvent::MouseMove:
+//        mouseMoveEvent(e);
+//        break;
+//        }
+        if(e->type() == QEvent::Timer)
+        {
+            // 干掉定时器
+            // 如果返回true，事件停止传播
+            // QTimerEvent *e
+            // QTimerEvent *env = static_cast<QTimerEvent *>(e);
+            // timerEvent(env);
+
+            return true;
+        }
+        else if(e->type() == QEvent::KeyPress)
+        {
+            // 类型转换
+            QKeyEvent *env = static_cast<QKeyEvent *>(e);
+            if(env->key() == Qt::Key_B)
+            {
+                return QWidget::event(e);
+            }
+            return true;
+        }
+        else
+        {
+            return QWidget::event(e);
+        }
+}
