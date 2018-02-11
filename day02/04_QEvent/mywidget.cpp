@@ -19,6 +19,10 @@ MyWidget::MyWidget(QWidget *parent) :
                 qDebug() << "按钮被按下";
             }
             );
+
+    // 安装过滤器
+    ui->label_2->installEventFilter(this);
+    ui->label_2->setMouseTracking(true);
 }
 
 MyWidget::~MyWidget()
@@ -113,4 +117,37 @@ bool MyWidget::event(QEvent *e)
         {
             return QWidget::event(e);
         }
+}
+
+bool MyWidget::eventFilter(QObject *obj, QEvent *e)
+{
+    if(obj == ui->label_2)
+    {
+        QMouseEvent *env = static_cast<QMouseEvent *>(e);
+        // 判断事件
+        if(e->type() == QEvent::MouseMove)
+        {
+            ui->label_2->setText(QString("Mouse move: (%1, %2)").arg(env->x()).arg(env->y()));
+            return true;
+        }
+        if(e->type() == QEvent::MouseButtonPress)
+        {
+            ui->label_2->setText(QString("Mouse press: (%1, %2)").arg(env->x()).arg(env->y()));
+            return true;
+        }
+        if(e->type() == QEvent::MouseButtonRelease)
+        {
+            ui->label_2->setText(QString("Mouse release: (%1, %2)").arg(env->x()).arg(env->y()));
+            return true;
+        }else{
+            return QWidget::eventFilter(obj, e);
+        }
+    }else{
+        return QWidget::eventFilter(obj, e);
+    }
+
+//    if(obj == ui->pushButton)
+//    {
+
+//    }
 }

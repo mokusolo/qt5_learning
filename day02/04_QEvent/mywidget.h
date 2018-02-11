@@ -31,6 +31,9 @@ protected:
     // 重写event事件
     bool event(QEvent *);
 
+    // 事件过滤器
+    bool eventFilter(QObject *obj, QEvent *e);
+
 private:
     Ui::MyWidget *ui;
 
