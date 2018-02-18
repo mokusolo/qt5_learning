@@ -21,8 +21,12 @@ protected:
     // 绘图事件内部自动调用，窗口需要重绘的时候（状态改变）
     void paintEvent(QPaintEvent *);
 
+private slots:
+    void on_pushButton_clicked();
+
 private:
     Ui::Widget *ui;
+    int x;
 };
 
 #endif // WIDGET_H

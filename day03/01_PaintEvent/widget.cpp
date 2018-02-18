@@ -9,6 +9,8 @@ Widget::Widget(QWidget *parent) :
     ui(new Ui::Widget)
 {
     ui->setupUi(this);
+
+    x = 0;
 }
 
 Widget::~Widget()
@@ -26,7 +28,7 @@ void Widget::paintEvent(QPaintEvent *)
     // p.drawxxx();
     // 画背景图
     // p.drawPixmap(0, 0, width(), height(), QPixmap("../image/2.jpg"));
-    p.drawPixmap(rect(), QPixmap("../image/2.jpg"));
+    p.drawPixmap(rect(), QPixmap(":/images/image/2.jpg"));
 
     // 定义画笔
     QPen pen;
@@ -56,5 +58,20 @@ void Widget::paintEvent(QPaintEvent *)
     // 画圆形
     p.drawEllipse(QPoint(150, 150), 50, 25);
 
+    // 画笑脸
+    p.drawPixmap(x, 180, 80, 80, QPixmap(":/images/image/2.jpg"));
+
     p.end();
+}
+
+void Widget::on_pushButton_clicked()
+{
+    x += 20;
+    if( x > width() )
+    {
+        x = 0;
+    }
+
+    // 刷新窗口，让窗口重绘，整个窗口都刷新
+    update(); //　间接调用paintEvent()
 }
