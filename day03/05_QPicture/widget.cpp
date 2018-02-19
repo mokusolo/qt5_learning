@@ -2,6 +2,8 @@
 #include "ui_widget.h"
 #include <QPainter>
 #include <QPicture>
+#include <QImage>
+#include <QPixmap>
 
 Widget::Widget(QWidget *parent) :
     QWidget(parent),
@@ -28,9 +30,26 @@ Widget::~Widget()
 
 void Widget::paintEvent(QPaintEvent *)
 {
+#if 0
     QPicture pic;
     pic.load("/Users/mokusolo/Downloads/qt_learning/QtCode/day03/05_QPicture/picture.png");
     QPainter p(this);
     p.drawPicture(0, 0, pic);
+#endif
+
+    QPainter p(this);
+    QPixmap pixmap;
+    pixmap.load("/Users/mokusolo/Downloads/qt_learning/QtCode/day03/05_QPicture/picture.png");
+
+    // QPixmap -> QImage
+    QImage tempImage = pixmap.toImage();
+    p.drawImage(0, 0, tempImage);
+
+    QImage image;
+    image.load("/Users/mokusolo/Downloads/qt_learning/QtCode/day03/05_QPicture/picture.png");
+
+    // QImage -> QPixmap
+    QPixmap tempPixmap = QPixmap::fromImage(image);
+    p.drawPixmap(100, 0, tempPixmap);
 
 }
